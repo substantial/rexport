@@ -61,6 +61,13 @@ function handleRepos(err, repos) {
     return nextRepoPage();
   }
 
+  var titles = 'Name, Access, Type, Created, Pushed, Language';
+  for (var i = 1; i <= 10; i++) {
+    titles += ", Contrib " + i + ", Commits " + i
+  }
+
+  console.log(titles);
+
   allRepos.map(handleRepo);
 }
 
