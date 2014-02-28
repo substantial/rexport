@@ -38,9 +38,8 @@ if (!args.o)  {
 }
 
 var client = require('octonode').client(token);
-var me = client.me()
-var perPage = 100;
 var org = client.org(args.o)
+var perPage = 100;
 var page = 0;
 var allRepos = [];
 
