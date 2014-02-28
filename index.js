@@ -83,6 +83,7 @@ function handleRepo(repoData) {
       names = _.map((contributors || []).slice(0,10), formatContributor);
     }
     console.log(repoData.name + ', '
+                + (repoData.private ? 'PRIVATE' : 'PUBLIC') + ', '
                 + (repoData.fork ? 'FORK' : 'SOURCE') + ', '
                 + repoData.created_at + ', '
                 + repoData.pushed_at + ', '
