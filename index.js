@@ -41,10 +41,15 @@ var client = require('octonode').client(token);
 var me = client.me()
 var perPage = 100;
 var org = client.org(args.o)
-var page = 1;
+var page = 0;
 var allRepos = [];
 
-org.repos({page: page, per_page: perPage}, handleRepos);
+nextRepoPage();
+
+function nextRepoPage() {
+  page += 1;
+  org.repos({page: page, per_page: perPage}, handleRepos);
+}
 
 function handleRepos(err, repos) {
   if (err) {
@@ -54,8 +59,7 @@ function handleRepos(err, repos) {
   }
   allRepos = allRepos.concat(repos);
   if (repos.length == perPage) {
-    page += 1;
-    return org.repos({page: page, per_page: perPage}, handleRepos);
+    return nextRepoPage();
   }
 
   allRepos.map(handleRepo);
