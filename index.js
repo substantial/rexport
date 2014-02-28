@@ -2,18 +2,35 @@ var fs = require('fs');
 var yargs = require('yargs');
 var _ = require('lodash');
 
-var args = yargs
+var opts = yargs
   .options('t', {alias: 'token'})
   .options('s', {alias: 'save-token'})
   .options('o', {alias: 'organization'})
-  .argv;
+  .usage('Output a CSV-formatted list of the github repos for an organization')
+  .describe({
+    t: 'a github api token',
+    s: 'save the token locally (to ./.token)',
+    o: 'the name of the organization'
+  });
+
+var args = opts.argv;
+
+if (!(args.o || args.t) || args.o === true) {
+  opts.showHelp();
+  process.exit(1);
+}
 
 var token = args.t;
 if (token && args.s) {
   fs.writeFileSync(__dirname + '/.token', args.t);
+  console.error('wrote token to ' + __dirname + '/.token');
 }
 
 token = token || fs.readFileSync(__dirname + '/.token', 'utf-8').split("\n")[0];
+
+if (!args.o)  {
+  process.exit();
+}
 
 var client = require('octonode').client(token);
 var me = client.me()
