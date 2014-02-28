@@ -80,13 +80,18 @@ function handleRepo(repoData) {
       repoData.name,
       (repoData.private ? 'PRIVATE' : 'PUBLIC'),
       (repoData.fork ? 'FORK' : 'SOURCE'),
-      repoData.created_at,
-      repoData.pushed_at,
+      formatDate(repoData.created_at),
+      formatDate(repoData.pushed_at),
       repoData.language,
       names.join(', ')
     ];
     console.log(columns.join(', '));
   });
+}
+
+function formatDate(d) {
+  if (d && d.length > 10) return d.substring(0,10);
+  return '';
 }
 
 function formatContributor(contributor) {
