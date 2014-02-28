@@ -66,10 +66,6 @@ function handleOrgs(err, orgs) {
   }
 }
 
-function nextPage(){
-}
-
-
 function handleRepo(repoData) {
   var repo = client.repo(repoData.full_name);
 
