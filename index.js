@@ -1,3 +1,4 @@
+#! /usr/bin/env node
 var fs = require('fs');
 var yargs = require('yargs');
 var _ = require('lodash');
@@ -22,7 +23,7 @@ if (!(args.o || args.t) || args.o === true) {
 
 var token = args.t;
 if (token && args.s) {
-  fs.writeFileSync(__dirname + '/.token', args.t);
+  fs.writeFileSync(__dirname + '/.token', token);
   console.error('wrote token to ' + __dirname + '/.token');
 }
 
@@ -92,6 +93,7 @@ function handleRepo(repoData) {
       repoData.language,
       names.join(', ')
     ];
+    columns = columns.concat(names);
     console.log(columns.join(', '));
   });
 }
